@@ -1,11 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import MeuComponente from './components/MeuComponente';
+import MinMax from './components/MinMax';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <MeuComponente/>
+      <MinMax min="10" max="20"/>
     </View>
   );
 }
