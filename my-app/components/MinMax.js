@@ -1,14 +1,12 @@
-import { View } from "react-native";
+import React from "react";
+import { Text } from "react-native";
 
-export default function MinMax(params){
+export default function MinMax(props) {
+    const { min, max } = props;
 
-    // const max = params.max;
-    // const min = params.mim;
+    const maxValue = Math.max(min, max)
 
-const {min, max} = params;
-console.warn(props)
-
-    return(
-            <Text>{params.parametros}</Text>
-    )
+    return (
+        <Text>O valor máximo é: {maxValue}</Text>
+    );
 }
