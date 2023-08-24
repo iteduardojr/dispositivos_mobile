@@ -7,6 +7,6 @@ export default function MinMax(props) {
     const maxValue = Math.max(min, max)
 
     return (
-        <Text>O valor máximo é: {maxValue}</Text>
+        <Text>{max} JÉ maior que" {min}</Text>
     );
 }
