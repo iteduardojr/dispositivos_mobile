@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import MeuComponente from './components/MeuComponente';
 import MinMax from './components/MinMax';
 import MeuComponente2 from './components/semana02/MeuComponente2';
-import NumeroAleatorio from './components/NumeroAleatorio';
+import NumeroAleatorio from './components/semana03/NumeroAleatorio';
 
 export default function App(props) {
   return (
