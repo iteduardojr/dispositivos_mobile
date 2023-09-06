@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import BiscoitoSorte from './BiscoitoSorte';
+import BiscoitoSorte from './components/semana05/BiscoitoSorte';
+// import BiscoitoSorte from './BiscoitoSorte';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <BiscoitoSorte />
+      <BiscoitoSorte/>
     </View>
   );
 }
