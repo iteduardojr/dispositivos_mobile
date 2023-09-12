@@ -48,16 +48,16 @@ export default function Cronometro(props) {
 
     return (
         <View style={styles.tudo}>
-            <View style={styles.Timer}>
-                <Image source={require('../../assets/Cronometro.png')} style={styles.Image} />
-                <View style={[styles.Timer1, styles.Equal]}>
-                    <Text style={styles.textTimer}>{formattedTime}</Text>
+            <View style={styles.Tempo}>
+                <Image source={require('../../assets/Cronometro.png')} style={styles.Imagem} />
+                <View style={[styles.Padding, styles.Linha]}>
+                    <Text style={styles.CordoCronometro}>{formattedTime}</Text>
                 </View>
-                <View style={styles.viewButton}>
-                    <TouchableOpacity style={[styles.Button, styles.Equal]} onPress={controlTimer}>
+                <View style={styles.PadraoBotao}>
+                    <TouchableOpacity style={[styles.Button, styles.Linha]} onPress={controlTimer}>
                         <Text style={styles.buttonText}>{active ? 'Parar' : 'Começar'}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.Button, styles.Equal]} onPress={resetTimer}>
+                    <TouchableOpacity style={[styles.Button, styles.Linha]} onPress={resetTimer}>
                         <Text style={styles.buttonText}>Reiniciar</Text>
                     </TouchableOpacity>
                 </View>
@@ -67,13 +67,13 @@ export default function Cronometro(props) {
                 {history.length > 0 ? <>
                     <Text style={styles.buttonText}>Histórico:</Text>
                     <View style={styles.Scroll}>
-                        <ScrollView style={[styles.Equal]}>
+                        <ScrollView style={[styles.Linha]}>
                             {history.map((record, index) => (
                                 <Text key={index} style={[styles.buttonText, styles.Map]}>{`Time: ${String(record.hours).padStart(2, '0')}:${String(record.minutes).padStart(2, '0')}:${String(record.seconds).padStart(2, '0')}`}</Text>
                             ))}
                         </ScrollView>
-                        <View style={styles.Timer}>
-                            <TouchableOpacity style={[styles.Button, styles.Equal]} onPress={delet}>
+                        <View style={styles.Tempo}>
+                            <TouchableOpacity style={[styles.Button, styles.Linha]} onPress={delet}>
                                 <Text style={[styles.Button, styles.buttonText]}>Apagar</Text>
                             </TouchableOpacity>
                         </View>
@@ -91,28 +91,28 @@ const styles = StyleSheet.create({
         marginVertical: 90
     },
 
-    Timer: {
+    Tempo: {
 
         justifyContent: 'center', alignItems: 'center', gap: 30,
 
     },
 
-    Image: {
-        width: 260, height: 260, resizeMode: 'stretch'
+    Imagem: {
+        width: 200, height: 200, resizeMode: 'stretch'
     },
 
-    Timer1: {
+    Padding: {
         alignItems: 'center',
         paddingVertical: 5,
         width: 260,
     },
 
-    textTimer: {
+    CordoCronometro: {
         fontSize: 40,
         color: 'red',
     },
 
-    viewButton: {
+    PadraoBotao: {
         flexDirection: 'row', gap: 20
     },
 
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
 
-    Equal: {
+    Linha: {
         borderRadius: 5,
         borderWidth: 1, borderColor: 'red'
     },
