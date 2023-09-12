@@ -5,13 +5,23 @@ export default function Profile({ imgUri, genero, nome, telefone, email }) {
 
     const imagem = imgUri
 
+    const carros = ['BMW', 'Savero', 'Fiat', 'Uno', 'Up']
+
     return (
         <View style={styles.container}>
+
+           <FlatList
+           data={carros}
+           renderItem={({ item })=><Text>{item}</Text>}
+           />            
+
+
+
             <Image
                 source={{ uri: imagem }}
                 style={styles.img}
             />
-            <View style={styles.centro}>
+            
 
                 <View style={styles.labelContainer}>
                     <Text style={[styles.texto, styles.textoLabel]}>Gênero</Text>
@@ -36,7 +46,7 @@ export default function Profile({ imgUri, genero, nome, telefone, email }) {
 
             </View>
 
-        </View>
+      
     )
 }
 
@@ -47,13 +57,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'red',
         margin: 20
-    },
-    centro: {
-        flexDirection: 'column',
-        // alignItems: 'space-evenly',
-        alignItems: 'start',
-        justifyContent: 'flex-start',
-
     },
 
     img: {
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
     labelContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
         width: '100%',
         padding: 20
     },
