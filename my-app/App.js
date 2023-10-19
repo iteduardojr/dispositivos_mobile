@@ -1,19 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { PaperProvider } from 'react-native-paper'
-import Router from './src/routes/Router'
+import { NavigationContainer } from '@react-navigation/native';
+import 'react-native-gesture-handler';
+
+import { PaperProvider } from 'react-native-paper';
+import DrawerRoutes from './src/routes/DrawerRoutes';
 
 export default function App() {
   return (
     <PaperProvider>
-      <Router />
+      <NavigationContainer>
+        <DrawerRoutes />
+      </NavigationContainer>
     </PaperProvider>
-  )
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'blue',
-  }
-})
