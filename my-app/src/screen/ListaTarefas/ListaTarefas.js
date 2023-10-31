@@ -1,41 +1,69 @@
-import React, { useState } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
-import { Button, Card, IconButton, Text, TextInput } from 'react-native-paper'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { Button, Card, IconButton, Text, TextInput } from 'react-native-paper';
 
 export default function ListaTarefas() {
-    const [tarefas, setTarefas] = useState(["Tarefa 1", "Tarefa 2"])
+
+    const [tarefas, setTarefas] = useState([])
     const [inputValue, setInputValue] = useState('')
     const [editando, setEditando] = useState(false)
-    const [tarefaSendoEditada, setTarefaSendoEditada] = useState(null)
+    const [tarefaSendoEditado, setTarefaSendoEditado] = useState(null)
 
-    function adicionarTarefa() {
-        let novaListaTarefas = [...tarefas, inputValue]
+
+    useEffect(() => {
+        loadTarefas()
+    },[])
+
+
+    async function loadTarefas() {
+        const response =  await AsyncStorage.getItem('tarefas')
+        console.log("🚀 ~ file: ListaTarefas.js:21 ~ loadTarefas ~ response:", response)
+        const tarefasStorage = response ? JSON.parse(response) : []
+        setTarefas(tarefasStorage)
+    }
+
+
+    async function adicionarTarefa() {
+        console.log('ADICIONAR TAREFA')
+        let novaListaTarefas = tarefas
+        novaListaTarefas.push(inputValue)
+        await AsyncStorage.setItem('tarefas', JSON.stringify(novaListaTarefas));
         setTarefas(novaListaTarefas)
-        setTarefaSendoEditada(null)
+        setTarefaSendoEditado(null)
         setInputValue('')
     }
 
-    function editarTarefa() {
-        const index = tarefas.indexOf(tarefaSendoEditada)
-        const novaListaTarefas = [...tarefas]
-        novaListaTarefas[index] = inputValue
+    async function editarTarefa() {
+        console.log('EDITAR TAREFA')
+        console.log('tarefaSendoEditado: ', tarefaSendoEditado)
+        console.log('TarefaASerEditado inputValue: ', inputValue)
+
+        let index = tarefas.indexOf(tarefaSendoEditado)
+        let novaListaTarefas = tarefas
+
+        novaListaTarefas.splice(index, 1, inputValue)
+
+        await AsyncStorage.setItem('tarefas', JSON.stringify(novaListaTarefas));
         setTarefas(novaListaTarefas)
         setEditando(false)
         setInputValue('')
     }
 
-    function excluirTarefa(tarefa) {
-        const novaListaTarefas = tarefas.filter(item => item !== tarefa)
+    async function excluirTarefa(tarefa) {
+        let novaListaTarefas = tarefas.filter(item => item !== tarefa)
+        await AsyncStorage.setItem('tarefas', JSON.stringify(novaListaTarefas));
         setTarefas(novaListaTarefas)
     }
 
     function handleEditarTarefa(tarefa) {
-        setTarefaSendoEditada(tarefa)
+        setTarefaSendoEditado(tarefa)
         setInputValue(tarefa)
         setEditando(true)
     }
 
     function handleButton() {
+        console.log('HANDLE BUTTON -> editando: ', editando)
         if (editando) {
             editarTarefa()
         } else {
@@ -45,7 +73,9 @@ export default function ListaTarefas() {
 
     return (
         <View style={styles.container}>
+
             <View style={styles.inputContainer}>
+
                 <TextInput
                     style={{ flex: 4 }}
                     mode='outlined'
@@ -53,14 +83,19 @@ export default function ListaTarefas() {
                     value={inputValue}
                     onChangeText={(text) => setInputValue(text)}
                 />
+
+
                 <Button
                     style={styles.button}
                     mode='contained'
                     onPress={handleButton}
                 >
-                    {editando ? 'Editar' : 'Adicionar'}
+                    {editando ? 'Edit' : 'Add'}
                 </Button>
+
             </View>
+
+
 
             <FlatList
                 style={styles.list}
@@ -72,12 +107,18 @@ export default function ListaTarefas() {
                     >
                         <Card.Content style={styles.cardContent}>
                             <Text variant='titleMedium' style={{ flex: 1 }}>{item}</Text>
-                            <IconButton icon='pencil' onPress={() => handleEditarTarefa(item)} />
-                            <IconButton icon='delete' onPress={() => excluirTarefa(item)} />
+                            <IconButton icon='pen' onPress={() => {
+                                handleEditarTarefa(item)
+                            }} />
+                            <IconButton icon='trash-can-outline' onPress={() => {
+                                excluirTarefa(item)
+                            }} />
                         </Card.Content>
                     </Card>
                 )}
+
             />
+
         </View>
     )
 }
