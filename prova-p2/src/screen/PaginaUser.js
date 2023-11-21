@@ -3,6 +3,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react'
 import Api from '../services/Api'
 import { Card, Text } from 'react-native-paper'
 
+
 export default function PaginaUser(props) {
     const { navigation } = props
 
