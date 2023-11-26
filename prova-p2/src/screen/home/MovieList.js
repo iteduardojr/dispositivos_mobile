@@ -3,6 +3,7 @@ import { View, FlatList, TextInput, TouchableOpacity } from 'react-native';
 import { Avatar, Button, Card, Divider, IconButton, Modal, Portal, Text } from 'react-native-paper';
 import Api from '../../services/Api';
 import Global from '../../../style/Global';
+import ApiRandom from '../../services/ApiRandom';
 
 export function MostrarImage(props) {
   const [visible, setVisible] = useState(false);
@@ -42,9 +43,17 @@ const IndexScreen = (props) => {
         setTopRated(response.data.users);
         const initialComments = {};
         response.data.users.forEach(user => {
-          initialComments[user.id] = [];
+          initialComments[user.id] = [];  
         });
         setComments(initialComments);
+  
+        ApiRandom.get('?results=1')
+          .then(response => {
+            console.log('Resposta da API Random:', response.data);
+          })
+          .catch(error => {
+            console.error('Erro na API Random:', error);
+          });
       });
     } catch (error) {
       console.log(error);
@@ -114,7 +123,7 @@ const IndexScreen = (props) => {
                           <Text style={{ color: 'blue', marginLeft: 10 }}>Editar</Text>
                         </TouchableOpacity>
                       </View>
-                    </View>
+                    </View>   
                   ))}
                   <TextInput
                     placeholder="Adicione um comentário..."

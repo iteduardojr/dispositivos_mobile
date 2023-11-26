@@ -31,7 +31,7 @@ export default function PaginaUser(props) {
     }, [navigation, topRated.firstName]);
 
 
-    // console.log(topRated)
+    console.log(topRated)
 
     return (
         <View style={{padding: 10}}>
