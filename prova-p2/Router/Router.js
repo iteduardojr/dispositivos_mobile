@@ -8,6 +8,7 @@ import Formulario from '../src/screen/Formulario'
 import { IconButton } from 'react-native-paper'
 import User from '../src/screen/User'
 
+
 const Stack = createStackNavigator()
 
 
@@ -25,6 +26,7 @@ export default function Router() {
                 }} />
                 <Stack.Screen name='dinamica' component={PaginaUser} />
                 <Stack.Screen name='User' component={User} />
+                
             </Stack.Navigator>
     )
 }
